@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,12 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
     private final IAccountsServices accountsServices;
+    private final Environment environment;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+
 
     @Operation(
             summary = "CREATE Account REST API",
@@ -107,6 +115,7 @@ public class AccountsController {
                     description = "Http Status Expectation Failed"
             )
     })
+
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccount(@RequestParam("mobileNumber")
                                                          @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
@@ -120,5 +129,33 @@ public class AccountsController {
         return ResponseEntity
                 .status(HttpStatus.EXPECTATION_FAILED)
                 .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
+    }
+
+    @Operation(
+            summary = "Get Build Information",
+            description = "REST API to fetch build information deployed in the accounts microservices"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status OK"
+    )
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity
+                .ok(buildVersion);
+    }
+
+    @Operation(
+            summary = "Get Java Version Information",
+            description = "REST API to fetch Java version used in the accounts microservices"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status OK"
+    )
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity
+                .ok(environment.getProperty("JAVA_HOME"));
     }
 }

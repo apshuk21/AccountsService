@@ -1,6 +1,6 @@
 services:
   accounts:
-    image: "apshuk21/accounts:s4"
+    image: "apshuk21/accounts:s6"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -11,7 +11,7 @@ services:
     networks:
       - eazybank
   loans:
-    image: "apshuk21/loans:s4"
+    image: "apshuk21/loans:s6"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -22,7 +22,7 @@ services:
     networks:
       - eazybank
   cards:
-    image: "apshuk21/cards:s4"
+    image: "apshuk21/cards:s6"
     container_name: cards-ms
     ports:
       - "9000:9000"

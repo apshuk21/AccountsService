@@ -19,3 +19,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+build:
+  version: "1.0"
