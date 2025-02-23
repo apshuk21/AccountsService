@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to Global Gateway Bank accounts related QA APIs"
+  contactDetails:
+    name: "John Doe - QA Lead"
+    email: "apshuk21@gmail.com"
+  onCallSupport:
+    - (666) 123-1234
+    - (666) 234-4321

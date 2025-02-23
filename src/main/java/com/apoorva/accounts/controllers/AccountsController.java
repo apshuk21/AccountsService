@@ -1,6 +1,7 @@
 package com.apoorva.accounts.controllers;
 
 import com.apoorva.accounts.constants.AccountsConstants;
+import com.apoorva.accounts.dtos.AccountsContactInfoDto;
 import com.apoorva.accounts.dtos.CustomerDto;
 import com.apoorva.accounts.dtos.ResponseDto;
 import com.apoorva.accounts.services.IAccountsServices;
@@ -31,11 +32,10 @@ public class AccountsController {
 
     private final IAccountsServices accountsServices;
     private final Environment environment;
+    private final AccountsContactInfoDto accountsContactInfoDto;
 
     @Value("${build.version}")
     private String buildVersion;
-
-
 
     @Operation(
             summary = "CREATE Account REST API",
@@ -157,5 +157,19 @@ public class AccountsController {
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity
                 .ok(environment.getProperty("JAVA_HOME"));
+    }
+
+    @Operation(
+            summary = "Get Contact Information",
+            description = "REST API to fetch contact information used in the accounts microservices"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status OK"
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .ok(accountsContactInfoDto);
     }
 }

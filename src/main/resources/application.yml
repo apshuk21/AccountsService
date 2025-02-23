@@ -19,6 +19,22 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "qa"
 
 build:
-  version: "1.0"
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Global Gateway Bank accounts related local APIs"
+  contactDetails:
+    name: "Apoorva Shukla - Developer"
+    email: "apshuk21@gmail.com"
+  onCallSupport:
+    - (555) 123-1234
+    - (555) 234-4321
